@@ -79,6 +79,14 @@
                                     <th>R</th>
                                     <th>Результат</th>
                                 </tr>
+                                <c:forEach items="${resultsList}" var="result">
+                                    <tr>
+                                        <td>${result.x}</td>
+                                        <td>${result.y}</td>
+                                        <td>${result.r}</td>
+                                        <td>${result.isInside ? 'Да' : 'Нет'}</td>
+                                    </tr>
+                                </c:forEach>
                             </table>
                         </td>
                     </tr>
