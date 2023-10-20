@@ -1,0 +1,55 @@
+.header {
+    /*color: #ff9aa4;*/
+    color: black;
+    text-align: center;
+    font-family: serif;
+    background-color: #d7d7d4;
+    height: 50px;
+}
+
+div {
+    margin-bottom: 20px; /* Например, 20px отступ снизу */
+}
+
+tr {
+    text-align: center;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+}
+
+#canvas_plot {
+    margin: auto;
+    background: #efefaa;
+}
+
+
+canvas {
+    display: block;
+    margin: 0 auto;
+}
+
+.center {
+    display: flex;  /* FlexBox */
+    justify-content: center; /* выравнивает по горизонтали*/
+}
+
+.result-table {
+    margin: 0 auto;
+}
+
+/* Стили для позиционирования iframe */
+#iframeContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px; /* Ширина iframe */
+    height: 100px; /* Высота iframe */
+}
+
+.error {
+    color: #fa0000;
+}
