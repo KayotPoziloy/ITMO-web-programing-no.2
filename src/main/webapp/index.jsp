@@ -34,7 +34,7 @@
                     <tr>
                         <!--ячейка ввода данных-->
                         <td>
-                            <form action="controller" method="get">
+                            <form action="/controller" method="get">
 
                                 <div>
                                     <%--разобраться с тем чтобы кнопки нажимались и отправляли данные--%>

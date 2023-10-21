@@ -1,5 +1,7 @@
 package webLab2;
 
+import webLab2.java.CheckResult;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @WebServlet("/AreaCheckServlet")
 public class AreaCheckServlet extends HttpServlet {
@@ -31,6 +34,8 @@ public class AreaCheckServlet extends HttpServlet {
         CheckResult result = new CheckResult(xValue, yValue, rValue, isInside);
 
         ServletContext servletContext = getServletContext();
+
+
         List<CheckResult> resultsList = (List<CheckResult>) servletContext.getAttribute("resultsList");
 
         if (resultsList == null) {

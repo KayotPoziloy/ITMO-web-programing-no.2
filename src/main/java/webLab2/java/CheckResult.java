@@ -1,4 +1,4 @@
-package webLab2;
+package webLab2.java;
 
 public class CheckResult {
     private double x;
