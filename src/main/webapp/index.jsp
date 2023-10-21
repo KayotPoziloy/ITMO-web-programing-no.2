@@ -37,16 +37,17 @@
                             <form action="controller" method="get">
 
                                 <div>
+                                    <%--разобраться с тем чтобы кнопки нажимались и отправляли данные--%>
                                     <label>Введите значение X:</label>
-                                    <label><input type="button" name="x" value="-2" required></label>
-                                    <label><input type="button" name="x" value="-1.5"></label>
-                                    <label><input type="button" name="x" value="-1"></label>
-                                    <label><input type="button" name="x" value="-0.5"></label>
-                                    <label><input type="button" name="x" value="0"></label>
-                                    <label><input type="button" name="x" value="0.5"></label>
-                                    <label><input type="button" name="x" value="1"></label>
-                                    <label><input type="button" name="x" value="1.5"></label>
-                                    <label><input type="button" name="x" value="2"></label>
+                                    <label><input type="button" name="x" value="-2" onclick="submitForm('-2')"></label>
+                                    <label><input type="button" name="x" value="-1.5" onclick="submitForm('-1.5')"></label>
+                                    <label><input type="button" name="x" value="-1" onclick="submitForm('-1')"></label>
+                                    <label><input type="button" name="x" value="-0.5" onclick="submitForm('-0.5')"></label>
+                                    <label><input type="button" name="x" value="0" onclick="submitForm('0')"></label>
+                                    <label><input type="button" name="x" value="0.5" onclick="submitForm('0.5')"></label>
+                                    <label><input type="button" name="x" value="1" onclick="submitForm('1')"></label>
+                                    <label><input type="button" name="x" value="1.5" onclick="submitForm('1.5')"></label>
+                                    <label><input type="button" name="x" value="2" onclick="submitForm('2')"></label>
                                 </div>
 
                                 <div id="errorX" class="error"></div>
@@ -57,17 +58,13 @@
                                 <div id="errorY" class="error"></div>
                                 <div>
                                     <label>Введите значение R (от 2 до 5):</label>
-                                    <label><input type="checkbox" name="r" value="1">1</label>
                                     <label><input type="checkbox" name="r" value="2">2</label>
                                     <label><input type="checkbox" name="r" value="3">3</label>
                                     <label><input type="checkbox" name="r" value="4">4</label>
                                     <label><input type="checkbox" name="r" value="5">5</label>
-
-                                <%--                                    <input type="text" name="r" id="r" required>--%>
                                 </div>
                                 <div id="errorR" class="error"></div>
                                 <input type="submit" value="Проверить">
-<%--                                <a href="JSP/results.jsp" style="padding-left: 20px">Таблица</a>--%>
                             </form>
 
                         </td>
