@@ -13,6 +13,11 @@
     <title>Лабораторная №2</title>
     <link rel="stylesheet" href="styles/styles.css">
 </head>
+<script>
+    function setXValue(x) {
+        document.getElementById("xValue").value = x;
+    }
+</script>
 <body>
 
 <table border="1" cellpadding="0" cellspacing="0" width="100%">
@@ -39,15 +44,16 @@
                                 <div>
                                     <%--разобраться с тем чтобы кнопки нажимались и отправляли данные--%>
                                     <label>Введите значение X:</label>
-                                    <label><input type="button" name="x" value="-2" onclick="submitForm('-2')"></label>
-                                    <label><input type="button" name="x" value="-1.5" onclick="submitForm('-1.5')"></label>
-                                    <label><input type="button" name="x" value="-1" onclick="submitForm('-1')"></label>
-                                    <label><input type="button" name="x" value="-0.5" onclick="submitForm('-0.5')"></label>
-                                    <label><input type="button" name="x" value="0" onclick="submitForm('0')"></label>
-                                    <label><input type="button" name="x" value="0.5" onclick="submitForm('0.5')"></label>
-                                    <label><input type="button" name="x" value="1" onclick="submitForm('1')"></label>
-                                    <label><input type="button" name="x" value="1.5" onclick="submitForm('1.5')"></label>
-                                    <label><input type="button" name="x" value="2" onclick="submitForm('2')"></label>
+                                        <button type="button" name="x" class="xButton" data-x="-2" onclick="setXValue('-2')">-2</button>
+                                        <button type="button" name="x" class="xButton" data-x="-1.5" onclick="setXValue('-1.5')">-1.5</button>
+                                        <button type="button" name="x" class="xButton" data-x="-1" onclick="setXValue('-1')">-1</button>
+                                        <button type="button" name="x" class="xButton" data-x="-0.5" onclick="setXValue('-0.5')">-0.5</button>
+                                        <button type="button" name="x" class="xButton" data-x="0" onclick="setXValue('0')">0</button>
+                                        <button type="button" name="x" class="xButton" data-x="0.5" onclick="setXValue('0.5')">0.5</button>
+                                        <button type="button" name="x" class="xButton" data-x="1" onclick="setXValue('1')">1</button>
+                                        <button type="button" name="x" class="xButton" data-x="1.5" onclick="setXValue('1.5')">1.5</button>
+                                        <button type="button" name="x" class="xButton" data-x="2" onclick="setXValue('2')">2</button>
+                                    <input type="hidden" name="x" id="xValue" value="">
                                 </div>
 
                                 <div id="errorX" class="error"></div>
@@ -66,7 +72,6 @@
                                 <div id="errorR" class="error"></div>
                                 <input type="submit" value="Проверить">
                             </form>
-
                         </td>
                         <td>
                             Отображение результатов

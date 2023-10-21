@@ -44,6 +44,13 @@ public class AreaCheckServlet extends HttpServlet {
 
         resultsList.add(result);
         servletContext.setAttribute("resultsList", resultsList);
+
+        request.setAttribute("x", xValue);
+        request.setAttribute("y", yValue);
+        request.setAttribute("r", rValue);
+        request.setAttribute("isInside", isInside);
+
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     private boolean checkCircle(double x, double y, double r) {

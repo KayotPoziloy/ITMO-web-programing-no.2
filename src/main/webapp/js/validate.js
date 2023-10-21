@@ -1,11 +1,21 @@
+
 // Функция, получающая значения X, Y, R из формы на index.jsp
 function getFormValues() {
-    let xValue = document.querySelector('input[name="x"]:checked').value;
+
+
+    let xValue = document.getElementById("xValue").value;
     xValue = xValue.replace(',', '.');
     let yValue = document.getElementById("y").value;
     yValue = yValue.replace(',', '.');
     let rValue = document.getElementById("r").value;
     rValue = rValue.replace(',', '.');
+
+    console.log("X:", xValue);
+    console.log("Y:", yValue);
+    console.log("R:", rValue);
+
+
+    return {x: xValue, y: yValue, r: rValue};
 }
 
 // Функция для валидации значений X, Y и R
