@@ -7,7 +7,8 @@ function getFormValues() {
     xValue = xValue.replace(',', '.');
     let yValue = document.getElementById("y").value;
     yValue = yValue.replace(',', '.');
-    let rValue = document.getElementById("r").value;
+    // let rValue = document.getElementsByName("r").value;
+    let rValue = document.querySelector('input[name="r"]:checked').value;
     rValue = rValue.replace(',', '.');
 
     console.log("X:", xValue);
@@ -59,25 +60,28 @@ function submitForm(xValue, yValue, rValue) {
     xhr.onload = function () {
         if (xhr.status === 200) {
             // обработка успешного ответа от сервера
-            // обновление таблицы результатов на текущей странице
-            let resultTable = document.getElementById("resultTable");
-            let newRow = resultTable.insertRow(1); // вставляем новую строку в таблицу
-            let xCell = newRow.insertCell(0); // Создаем ячейку X
-            let yCell = newRow.insertCell(1); // Создаем ячейку Y
-            let rCell = newRow.insertCell(2); // Создаем ячейку R
-            let resultCell = newRow.insertCell(3); // Создаем ячейку результата
-
-            xCell.innerHTML = xValue;
-            yCell.innerHTML = yValue;
-            rCell.innerHTML = rValue;
-            resultCell.innerHTML = "Да";
-
+            let result = JSON.parse(xhr.responseText);
+            updateResultTable(result);
         } else {
             console.error("Ошибка при отправке данных на сервер");
         }
     }
 
     xhr.send();
+}
+
+function updateResultTable(result) {
+    let resultTable = document.getElementById("resultTable");
+    let newRow = resultTable.insertRow(1);
+    let xCell = newRow.insertCell(0);
+    let yCell = newRow.insertCell(1);
+    let rCell = newRow.insertCell(2);
+    let resultCell = newRow.insertCell(3);
+
+    xCell.innerHTML = result.x;
+    yCell.innerHTML = result.y;
+    rCell.innerHTML = result.r;
+    resultCell.innerHTML = result.isInside ? "Да" : "Нет";
 }
 
 // Главная функция, которая вызывает остальные функции и управляет процессом

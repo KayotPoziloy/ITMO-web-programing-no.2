@@ -1,14 +1,16 @@
 package webLab2;
 
+import com.google.gson.JsonObject;
 import webLab2.java.CheckResult;
 
-import javax.servlet.ServletContext;
+import com.google.gson.Gson;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,26 +33,40 @@ public class AreaCheckServlet extends HttpServlet {
                 || checkRectangle(xValue, yValue, rValue)
                 || checkTriangle(xValue, yValue, rValue);
 
-        CheckResult result = new CheckResult(xValue, yValue, rValue, isInside);
+        JsonObject jsonResponse = new JsonObject();
+        jsonResponse.addProperty("x", xValue);
+        jsonResponse.addProperty("y", yValue);
+        jsonResponse.addProperty("r", rValue);
+        jsonResponse.addProperty("isInside", isInside);
 
-        ServletContext servletContext = getServletContext();
+        String json = new Gson().toJson(jsonResponse);
 
+        response.setContentType("application/json");
 
-        List<CheckResult> resultsList = (List<CheckResult>) servletContext.getAttribute("resultsList");
+        response.getWriter().write(json);
 
-        if (resultsList == null) {
-            resultsList = new ArrayList<>();
-        }
-
-        resultsList.add(result);
-        servletContext.setAttribute("resultsList", resultsList);
-
-        request.setAttribute("x", xValue);
-        request.setAttribute("y", yValue);
-        request.setAttribute("r", rValue);
-        request.setAttribute("isInside", isInside);
-
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+//        CheckResult result = new CheckResult(xValue, yValue, rValue, isInside);
+//
+//
+//
+//        ServletContext servletContext = getServletContext();
+//
+//
+//        List<CheckResult> resultsList = (List<CheckResult>) servletContext.getAttribute("resultsList");
+//
+//        if (resultsList == null) {
+//            resultsList = new ArrayList<>();
+//        }
+//
+//        resultsList.add(result);
+//        servletContext.setAttribute("resultsList", resultsList);
+//
+//        request.setAttribute("x", xValue);
+//        request.setAttribute("y", yValue);
+//        request.setAttribute("r", rValue);
+//        request.setAttribute("isInside", isInside);
+//
+//        request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     private boolean checkCircle(double x, double y, double r) {

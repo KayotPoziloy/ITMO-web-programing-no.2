@@ -18,6 +18,8 @@
         document.getElementById("xValue").value = x;
     }
 </script>
+<script src="js/validate.js"></script>
+
 <body>
 
 <table border="1" cellpadding="0" cellspacing="0" width="100%">
@@ -39,7 +41,7 @@
                     <tr>
                         <!--ячейка ввода данных-->
                         <td>
-                            <form action="/controller" method="get">
+                            <form action="javascript:void(0);" onsubmit="processForm();">
 
                                 <div>
                                     <%--разобраться с тем чтобы кнопки нажимались и отправляли данные--%>
