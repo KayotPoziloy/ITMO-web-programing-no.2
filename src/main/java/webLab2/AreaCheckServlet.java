@@ -1,5 +1,6 @@
 package webLab2;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import webLab2.java.CheckResult;
 
@@ -21,52 +22,41 @@ public class AreaCheckServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String x = request.getParameter("x");
         String y = request.getParameter("y");
-        String r = request.getParameter("r");
+        String[] rArray = (String[]) request.getAttribute("rValues");
 
         double xValue = Double.parseDouble(x);
         double yValue = Double.parseDouble(y);
-        double rValue = Double.parseDouble(r);
 
-        // добавить обработчик исключений
+        List<CheckResult> resultsList = new ArrayList<>();
 
-        boolean isInside = checkCircle(xValue, yValue, rValue)
-                || checkRectangle(xValue, yValue, rValue)
-                || checkTriangle(xValue, yValue, rValue);
+        for (String r : rArray) {
+            double rValue = Double.parseDouble(r);
+            boolean isInside = checkCircle(xValue, yValue, rValue)
+                    || checkRectangle(xValue, yValue, rValue)
+                    || checkTriangle(xValue, yValue, rValue);
+            resultsList.add(new CheckResult(xValue, yValue, rValue, isInside));
+        }
+
+        request.setAttribute("resultsList", resultsList);
+
+        JsonArray jsonArray = new JsonArray();
+        for (CheckResult result : resultsList) {
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("x", result.getX());
+            jsonObject.addProperty("y", result.getY());
+            jsonObject.addProperty("r", result.getR());
+            jsonObject.addProperty("isInside", result.isInside());
+            jsonArray.add(jsonObject);
+        }
 
         JsonObject jsonResponse = new JsonObject();
-        jsonResponse.addProperty("x", xValue);
-        jsonResponse.addProperty("y", yValue);
-        jsonResponse.addProperty("r", rValue);
-        jsonResponse.addProperty("isInside", isInside);
+        jsonResponse.add("results", jsonArray);
 
         String json = new Gson().toJson(jsonResponse);
 
         response.setContentType("application/json");
-
         response.getWriter().write(json);
 
-//        CheckResult result = new CheckResult(xValue, yValue, rValue, isInside);
-//
-//
-//
-//        ServletContext servletContext = getServletContext();
-//
-//
-//        List<CheckResult> resultsList = (List<CheckResult>) servletContext.getAttribute("resultsList");
-//
-//        if (resultsList == null) {
-//            resultsList = new ArrayList<>();
-//        }
-//
-//        resultsList.add(result);
-//        servletContext.setAttribute("resultsList", resultsList);
-//
-//        request.setAttribute("x", xValue);
-//        request.setAttribute("y", yValue);
-//        request.setAttribute("r", rValue);
-//        request.setAttribute("isInside", isInside);
-//
-//        request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     private boolean checkCircle(double x, double y, double r) {

@@ -19,12 +19,12 @@ public class ControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String x = request.getParameter("x");
         String y = request.getParameter("y");
-        String r = request.getParameter("r");
-
+        String[] rArray = request.getParameterValues("r");
 
         // проверка, переданы ли значения
-        if (x != null && y != null && r != null && checkX(x) && checkY(y) && checkR(r)) {
+        if (x != null && y != null && rArray != null && checkX(x) && checkY(y) && checkR(rArray)) {
             // если да, то перенаправляется на /AreaCheckServlet
+            request.setAttribute("rValues", rArray);
             request.getRequestDispatcher("/AreaCheckServlet").forward(request, response);
         } else {
             // если нет, то перенаправляется обратно
@@ -53,13 +53,13 @@ public class ControllerServlet extends HttpServlet {
     }
 
     // Проверка значения R
-    public boolean checkR(String r) {
-        String[] validRValues = {"1", "2", "3", "4", "5"};
-        try {
-            return Arrays.asList(validRValues).contains(r);
-        } catch (NumberFormatException e) {
-            return false;
+    public boolean checkR(String[] rArray) {
+        String[] validRValues = {"2", "3", "4", "5"};
+        for (String r : rArray) {
+            if (!Arrays.asList(validRValues).contains(r)) {
+                return false;
+            }
         }
-
+        return true;
     }
 }
