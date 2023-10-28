@@ -21,52 +21,28 @@ public class AreaCheckServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String x = request.getParameter("x");
         String y = request.getParameter("y");
-        String r = request.getParameter("r");
+        String[] rArray = request.getParameterValues("r");
 
         double xValue = Double.parseDouble(x);
         double yValue = Double.parseDouble(y);
-        double rValue = Double.parseDouble(r);
 
-        // добавить обработчик исключений
 
-        boolean isInside = checkCircle(xValue, yValue, rValue)
-                || checkRectangle(xValue, yValue, rValue)
-                || checkTriangle(xValue, yValue, rValue);
+        for (String r : rArray) {
+            double rValue = Double.parseDouble(r);
+            boolean isInside = checkCircle(xValue, yValue, rValue)
+                    || checkRectangle(xValue, yValue, rValue)
+                    || checkTriangle(xValue, yValue, rValue);
+            JsonObject jsonResponse = new JsonObject();
+            jsonResponse.addProperty("x", xValue);
+            jsonResponse.addProperty("y", yValue);
+            jsonResponse.addProperty("r", rValue);
+            jsonResponse.addProperty("isInside", isInside);
+            String json = new Gson().toJson(jsonResponse);
 
-        JsonObject jsonResponse = new JsonObject();
-        jsonResponse.addProperty("x", xValue);
-        jsonResponse.addProperty("y", yValue);
-        jsonResponse.addProperty("r", rValue);
-        jsonResponse.addProperty("isInside", isInside);
+            response.setContentType("application/json");
 
-        String json = new Gson().toJson(jsonResponse);
-
-        response.setContentType("application/json");
-
-        response.getWriter().write(json);
-
-//        CheckResult result = new CheckResult(xValue, yValue, rValue, isInside);
-//
-//
-//
-//        ServletContext servletContext = getServletContext();
-//
-//
-//        List<CheckResult> resultsList = (List<CheckResult>) servletContext.getAttribute("resultsList");
-//
-//        if (resultsList == null) {
-//            resultsList = new ArrayList<>();
-//        }
-//
-//        resultsList.add(result);
-//        servletContext.setAttribute("resultsList", resultsList);
-//
-//        request.setAttribute("x", xValue);
-//        request.setAttribute("y", yValue);
-//        request.setAttribute("r", rValue);
-//        request.setAttribute("isInside", isInside);
-//
-//        request.getRequestDispatcher("/index.jsp").forward(request, response);
+            response.getWriter().write(json);
+        }
     }
 
     private boolean checkCircle(double x, double y, double r) {
