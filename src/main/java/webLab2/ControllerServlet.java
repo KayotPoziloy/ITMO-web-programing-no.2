@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 
 @WebServlet("/controller")
@@ -19,11 +20,19 @@ public class ControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String x = request.getParameter("x");
         String y = request.getParameter("y");
-        String r = request.getParameter("r");
+        String[] rArray = request.getParameterValues("r");
 
-
-        // проверка, переданы ли значения
-        if (x != null && y != null && r != null && checkX(x) && checkY(y) && checkR(r)) {
+        boolean isValid = false;
+        for (String r : rArray) {
+            // проверка, переданы ли значения
+            if (x != null && y != null && checkX(x) && checkY(y) && checkR(r)) {
+                isValid = true;
+            } else {
+                break;
+            }
+        }
+        
+        if (isValid) {
             // если да, то перенаправляется на /AreaCheckServlet
             request.getRequestDispatcher("/AreaCheckServlet").forward(request, response);
         } else {
@@ -54,7 +63,7 @@ public class ControllerServlet extends HttpServlet {
 
     // Проверка значения R
     public boolean checkR(String r) {
-        String[] validRValues = {"1", "2", "3", "4", "5"};
+        String[] validRValues = {"2", "3", "4", "5"};
         try {
             return Arrays.asList(validRValues).contains(r);
         } catch (NumberFormatException e) {
