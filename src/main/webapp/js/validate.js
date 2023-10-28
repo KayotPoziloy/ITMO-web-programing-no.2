@@ -6,20 +6,21 @@ function getFormValues() {
     xValue = xValue.replace(',', '.');
     let yValue = document.getElementById("y").value;
     yValue = yValue.replace(',', '.');
-    // let rValue = document.getElementsByName("r").value;
-    let rValue = document.querySelector('input[name="r"]:checked').value;
-    rValue = rValue.replace(',', '.');
+    // let rValue = document.querySelector('input[name="r"]:checked').value;
+    // rValue = rValue.replace(',', '.');
+    let rCheckboxes = document.querySelectorAll('input[name="r"]:checked');
+    let rValues = Array.from(rCheckboxes).map(checkbox => checkbox.value);
 
     console.log("X:", xValue);
     console.log("Y:", yValue);
-    console.log("R:", rValue);
+    console.log("R:", rValues);
 
 
-    return {x: xValue, y: yValue, r: rValue};
+    return {x: xValue, y: yValue, r: rValues};
 }
 
 // Функция для валидации значений X, Y и R
-function validateForm(xValue, yValue, rValue) {
+function validateForm(xValue, yValue, rValues) {
     let errorX = document.getElementById("errorX");
     let errorY = document.getElementById("errorY");
     let errorR = document.getElementById("errorR");
@@ -39,17 +40,19 @@ function validateForm(xValue, yValue, rValue) {
         return false;
     }
 
-    if (isNaN(rValue) || rValue < 2 || rValue > 5) {
-        errorR.textContent = "Введите корректное значение R (от 2 до 5).";
-        return false;
+    for (let rValue of rValues) {
+        if (isNaN(rValue) || rValue < 2 || rValue > 5) {
+            errorR.textContent = "Введите корректное значение R (от 2 до 5).";
+            return false;
+        }
     }
 
     return true;
 }
 
-function submitForm(xValue, yValue, rValue) {
+function submitForm(xValue, yValue, rValues) {
     // Формируем URL с параметрами
-    let url = "/webLab2_war_exploded2/controller?x=" + xValue + "&y=" + yValue + "&r=" + rValue;
+    let url = "/webLab2_war_exploded2/controller?x=" + xValue + "&y=" + yValue + "&" + rValues.map(r => `r=${r}`).join('&');
 
     // Создаем XMLHttpRequest объект
     let xhr = new XMLHttpRequest();
@@ -58,9 +61,11 @@ function submitForm(xValue, yValue, rValue) {
 
     xhr.onload = function () {
         if (xhr.status === 200) {
-            // обработка успешного ответа от сервера
-            let result = JSON.parse(xhr.responseText);
-            updateResultTable(result);
+            let responseText = xhr.responseText;
+            responseText = responseText.replace(/}{/g, '}\n{');
+            let jsonStrings = responseText.split('\n');
+            let results = jsonStrings.map(json => JSON.parse(json));
+            updateResultTable(results);
         } else {
             console.error("Ошибка при отправке данных на сервер");
         }
@@ -69,18 +74,20 @@ function submitForm(xValue, yValue, rValue) {
     xhr.send();
 }
 
-function updateResultTable(result) {
+function updateResultTable(results) {
     let resultTable = document.getElementById("resultTable");
-    let newRow = resultTable.insertRow(1);
-    let xCell = newRow.insertCell(0);
-    let yCell = newRow.insertCell(1);
-    let rCell = newRow.insertCell(2);
-    let resultCell = newRow.insertCell(3);
+    results.forEach(result => {
+        let newRow = resultTable.insertRow(1);
+        let xCell = newRow.insertCell(0);
+        let yCell = newRow.insertCell(1);
+        let rCell = newRow.insertCell(2);
+        let resultCell = newRow.insertCell(3);
 
-    xCell.innerHTML = result.x;
-    yCell.innerHTML = result.y;
-    rCell.innerHTML = result.r;
-    resultCell.innerHTML = result.isInside ? "Да" : "Нет";
+        xCell.innerHTML = result.x;
+        yCell.innerHTML = result.y;
+        rCell.innerHTML = result.r;
+        resultCell.innerHTML = result.isInside ? "Да" : "Нет";
+    })
 }
 
 // Главная функция, которая вызывает остальные функции и управляет процессом
