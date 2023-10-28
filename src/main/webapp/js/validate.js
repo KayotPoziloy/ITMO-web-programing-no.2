@@ -1,23 +1,26 @@
+
 // Функция, получающая значения X, Y, R из формы на index.jsp
 function getFormValues() {
+
 
     let xValue = document.getElementById("xValue").value;
     xValue = xValue.replace(',', '.');
     let yValue = document.getElementById("y").value;
     yValue = yValue.replace(',', '.');
     // let rValue = document.getElementsByName("r").value;
-    let rCheckboxes = document.querySelectorAll('input[name="r"]:checked');
-    let rValues = Array.from(rCheckboxes).map(checkbox => checkbox.value);
+    let rValue = document.querySelector('input[name="r"]:checked').value;
+    rValue = rValue.replace(',', '.');
 
     console.log("X:", xValue);
     console.log("Y:", yValue);
-    console.log("R:", rValues);
+    console.log("R:", rValue);
 
-    return {x: xValue, y: yValue, r: rValues};
+
+    return {x: xValue, y: yValue, r: rValue};
 }
 
 // Функция для валидации значений X, Y и R
-function validateForm(xValue, yValue, rValues) {
+function validateForm(xValue, yValue, rValue) {
     let errorX = document.getElementById("errorX");
     let errorY = document.getElementById("errorY");
     let errorR = document.getElementById("errorR");
@@ -37,21 +40,17 @@ function validateForm(xValue, yValue, rValues) {
         return false;
     }
 
-    for (let rValue of rValues) {
-        if (isNaN(rValue) || rValue < 2 || rValue > 5) {
-            errorR.textContent = "Введите корректное значение R (от 2 до 5).";
-            return false;
-        }
+    if (isNaN(rValue) || rValue < 2 || rValue > 5) {
+        errorR.textContent = "Введите корректное значение R (от 2 до 5).";
+        return false;
     }
 
     return true;
 }
 
-function submitForm(xValue, yValue, rValues) {
+function submitForm(xValue, yValue, rValue) {
     // Формируем URL с параметрами
-    let url = "/webLab2_war_exploded2/controller?" +
-        "x=" + xValue + "&y=" + yValue + "&" + rValues.map(r => `r=${r}`).join('&');
-
+    let url = "/controller?x=" + xValue + "&y=" + yValue + "&r=" + rValue;
 
     // Создаем XMLHttpRequest объект
     let xhr = new XMLHttpRequest();
@@ -64,7 +63,7 @@ function submitForm(xValue, yValue, rValues) {
             let result = JSON.parse(xhr.responseText);
             updateResultTable(result);
         } else {
-            console.error("Ошибка при отправке данных на сервер " + xhr.status);
+            console.error("Ошибка при отправке данных на сервер");
         }
     }
 
