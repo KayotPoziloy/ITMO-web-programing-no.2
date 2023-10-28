@@ -1,4 +1,3 @@
-
 // Функция, получающая значения X, Y, R из формы на index.jsp
 function getFormValues() {
 
@@ -50,7 +49,7 @@ function validateForm(xValue, yValue, rValue) {
 
 function submitForm(xValue, yValue, rValue) {
     // Формируем URL с параметрами
-    let url = "/controller?x=" + xValue + "&y=" + yValue + "&r=" + rValue;
+    let url = "/webLab2_war_exploded2/controller?x=" + xValue + "&y=" + yValue + "&r=" + rValue;
 
     // Создаем XMLHttpRequest объект
     let xhr = new XMLHttpRequest();
