@@ -4,13 +4,14 @@ import com.google.gson.JsonObject;
 import webLab2.java.CheckResult;
 
 import com.google.gson.Gson;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,23 +27,57 @@ public class AreaCheckServlet extends HttpServlet {
         double xValue = Double.parseDouble(x);
         double yValue = Double.parseDouble(y);
 
+        ServletContext servletContext = getServletContext();
+        List<CheckResult> resultList = (List<CheckResult>) servletContext.getAttribute("resultList");
+
+        if (resultList == null) {
+            resultList = new ArrayList<>();
+        }
+
+        CheckResult result = null;
 
         for (String r : rArray) {
             double rValue = Double.parseDouble(r);
             boolean isInside = checkCircle(xValue, yValue, rValue)
                     || checkRectangle(xValue, yValue, rValue)
                     || checkTriangle(xValue, yValue, rValue);
-            JsonObject jsonResponse = new JsonObject();
-            jsonResponse.addProperty("x", xValue);
-            jsonResponse.addProperty("y", yValue);
-            jsonResponse.addProperty("r", rValue);
-            jsonResponse.addProperty("isInside", isInside);
-            String json = new Gson().toJson(jsonResponse);
 
-            response.setContentType("application/json");
+            result = new CheckResult(xValue, yValue, rValue, isInside);
 
-            response.getWriter().write(json);
+            sendJson(result, response);
         }
+        servletContext.setAttribute("resultList", resultList);
+
+//
+//        for (CheckResult results : resultList) {
+//            JsonObject jsonResponse = new JsonObject();
+//            jsonResponse.addProperty("x", results.getX());
+//            jsonResponse.addProperty("y", results.getY());
+//            jsonResponse.addProperty("r", results.getR());
+//            jsonResponse.addProperty("isInside", results.isInside());
+//            String json = new Gson().toJson(jsonResponse);
+//
+//            response.setContentType("application/json");
+//
+//            response.getWriter().write(json);
+//        }
+
+    }
+
+    private JsonObject writeJson(CheckResult result) {
+        JsonObject jsonResponse = new JsonObject();
+        jsonResponse.addProperty("x", result.getX());
+        jsonResponse.addProperty("y", result.getY());
+        jsonResponse.addProperty("r", result.getR());
+        jsonResponse.addProperty("isInside", result.isInside());
+
+        return jsonResponse;
+    }
+
+    private void  sendJson(CheckResult result, HttpServletResponse response) throws IOException {
+        String json = new Gson().toJson(writeJson(result));
+        response.setContentType("application/json");
+        response.getWriter().write(json);
     }
 
     private boolean checkCircle(double x, double y, double r) {

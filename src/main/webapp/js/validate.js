@@ -52,7 +52,7 @@ function validateForm(xValue, yValue, rValues) {
 
 function submitForm(xValue, yValue, rValues) {
     // Формируем URL с параметрами
-    let url = "/webLab2_war_exploded2/controller?x=" + xValue + "&y=" + yValue + "&" + rValues.map(r => `r=${r}`).join('&');
+    let url = "/webLab2_war_exploded/controller?x=" + xValue + "&y=" + yValue + "&" + rValues.map(r => `r=${r}`).join('&');
 
     // Создаем XMLHttpRequest объект
     let xhr = new XMLHttpRequest();
