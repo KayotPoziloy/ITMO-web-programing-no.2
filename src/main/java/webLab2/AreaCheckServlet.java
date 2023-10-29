@@ -43,23 +43,14 @@ public class AreaCheckServlet extends HttpServlet {
                     || checkTriangle(xValue, yValue, rValue);
 
             result = new CheckResult(xValue, yValue, rValue, isInside);
-
+            resultList.add(result);
             sendJson(result, response);
         }
         servletContext.setAttribute("resultList", resultList);
 
 //
 //        for (CheckResult results : resultList) {
-//            JsonObject jsonResponse = new JsonObject();
-//            jsonResponse.addProperty("x", results.getX());
-//            jsonResponse.addProperty("y", results.getY());
-//            jsonResponse.addProperty("r", results.getR());
-//            jsonResponse.addProperty("isInside", results.isInside());
-//            String json = new Gson().toJson(jsonResponse);
-//
-//            response.setContentType("application/json");
-//
-//            response.getWriter().write(json);
+//            sendJson(results);
 //        }
 
     }
