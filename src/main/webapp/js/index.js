@@ -16,7 +16,7 @@ function checkPoint(event) {
     // координата приходит относительно верхней левой точки в которой координата (0, 0)
     // потому, чтобы сместить точку к реальной координате относительно центра канваса нужно вычитать длину/2 и ширину/2
     const x = event.offsetX - xAxis;
-    const y = event.offsetY - yAxis;
+    const y = - (event.offsetY - yAxis);
 
     console.log(x, y);
 }
