@@ -31,7 +31,7 @@
     <tbody>
         <tr>
             <td>
-                <canvas id="canvas_plot" width="500" height="500"></canvas>
+                <canvas id="canvas_plot" width="500" height="500" onclick="checkPoint(event)"></canvas>
                 <script src="js/index.js"></script>
             </td>
         </tr>

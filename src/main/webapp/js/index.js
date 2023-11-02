@@ -7,11 +7,19 @@ const canvasPlotHeight = canvasPlot.clientHeight;
 const lineWidth = 8;
 const lineHeight = 2;
 
-const xAxis = canvasPlotWidth / 2;
-const yAxis = canvasPlotHeight / 2;
+const xAxis = canvasPlotWidth / 2; // середина по горизонтали
+const yAxis = canvasPlotHeight / 2; // середина по вертикали
 
 const radius = 200;
 
+function checkPoint(event) {
+    // координата приходит относительно верхней левой точки в которой координата (0, 0)
+    // потому, чтобы сместить точку к реальной координате относительно центра канваса нужно вычитать длину/2 и ширину/2
+    const x = event.offsetX - xAxis;
+    const y = event.offsetY - yAxis;
+
+    console.log(x, y);
+}
 
 // Главные оси
 function axis() {
