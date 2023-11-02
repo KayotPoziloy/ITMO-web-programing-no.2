@@ -48,11 +48,6 @@ public class AreaCheckServlet extends HttpServlet {
         }
         servletContext.setAttribute("resultList", resultList);
 
-//
-//        for (CheckResult results : resultList) {
-//            sendJson(results);
-//        }
-
     }
 
     private JsonObject writeJson(CheckResult result) {
