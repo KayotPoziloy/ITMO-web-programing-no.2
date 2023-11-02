@@ -43,9 +43,9 @@ public class ControllerServlet extends HttpServlet {
 
     // Проверка значения X
     public boolean checkX(String x) {
-        String[] validXValues = {"-2", "-1.5", "-1", "-0.5", "0", "0.5", "1", "1.5", "2"};
         try {
-            return Arrays.asList(validXValues).contains(x);
+            double xValue = Double.parseDouble(x);
+            return xValue >= -2 && xValue <= 2;
         } catch (NumberFormatException e) {
             return false;
         }

@@ -1,7 +1,5 @@
 // Функция, получающая значения X, Y, R из формы на index.jsp
 function getFormValues() {
-
-
     let xValue = document.getElementById("xValue").value;
     xValue = xValue.replace(',', '.');
     let yValue = document.getElementById("y").value;
@@ -14,7 +12,6 @@ function getFormValues() {
     console.log("X:", xValue);
     console.log("Y:", yValue);
     console.log("R:", rValues);
-
 
     return {x: xValue, y: yValue, r: rValues};
 }
@@ -40,19 +37,32 @@ function validateForm(xValue, yValue, rValues) {
         return false;
     }
 
-    for (let rValue of rValues) {
-        if (isNaN(rValue) || rValue < 2 || rValue > 5) {
+    if (rValues.isArray) {
+        for (let rValue of rValues) {
+            if (isNaN(rValue) || rValue < 2 || rValue > 5) {
+                errorR.textContent = "Введите корректное значение R (от 2 до 5).";
+                return false;
+            }
+        }
+    } else {
+        if (isNaN(rValues) || rValues < 2 || rValues > 5) {
             errorR.textContent = "Введите корректное значение R (от 2 до 5).";
             return false;
         }
     }
 
+
     return true;
 }
 
 function submitForm(xValue, yValue, rValues) {
+    let url;
     // Формируем URL с параметрами
-    let url = "/webLab2_war_exploded/controller?x=" + xValue + "&y=" + yValue + "&" + rValues.map(r => `r=${r}`).join('&');
+    if (rValues.isArray) {
+        url = "/webLab2_war_exploded2/controller?x=" + xValue + "&y=" + yValue + "&" + rValues.map(r => `r=${r}`).join('&');
+    } else {
+        url = "/webLab2_war_exploded2/controller?x=" + xValue + "&y=" + yValue + "&r=" + rValues;
+    }
 
     // Создаем XMLHttpRequest объект
     let xhr = new XMLHttpRequest();

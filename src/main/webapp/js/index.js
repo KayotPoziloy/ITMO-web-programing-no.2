@@ -17,8 +17,24 @@ function checkPoint(event) {
     // потому, чтобы сместить точку к реальной координате относительно центра канваса нужно вычитать длину/2 и ширину/2
     const x = event.offsetX - xAxis;
     const y = - (event.offsetY - yAxis);
+    const r = 2; // пока условно, потом будет принимать из страницы
+    const rSplit = 200; // один r это 200 px на полотне
+
+    // пусть x = 160px rSplit = 200px x = 160/200 = 0,8
+    // пусть x = 160/200*r = 0,8*r
+    let xValue = x / rSplit; // получаем x относительно r в пикселях
+    xValue = xValue*r // получаем x относительно заданного r
+
+    let yValue = y / rSplit;
+    yValue = yValue*r;
 
     console.log(x, y);
+    console.log(xValue, yValue);
+
+    if (validateForm(xValue, yValue, r)) {
+        submitForm(xValue, yValue, r);
+    }
+    return {x: xValue, y: yValue, r: r};
 }
 
 // Главные оси
