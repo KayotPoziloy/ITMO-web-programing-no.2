@@ -4,8 +4,6 @@ function getFormValues() {
     xValue = xValue.replace(',', '.');
     let yValue = document.getElementById("y").value;
     yValue = yValue.replace(',', '.');
-    // let rValue = document.querySelector('input[name="r"]:checked').value;
-    // rValue = rValue.replace(',', '.');
     let rCheckboxes = document.querySelectorAll('input[name="r"]:checked');
     let rValues = Array.from(rCheckboxes).map(checkbox => checkbox.value);
 
@@ -59,9 +57,9 @@ function submitForm(xValue, yValue, rValues) {
     let url;
     // Формируем URL с параметрами
     if (rValues.isArray) {
-        url = "/webLab2_war_exploded2/controller?x=" + xValue + "&y=" + yValue + "&" + rValues.map(r => `r=${r}`).join('&');
+        url = "/webLab2_war_exploded/controller?x=" + xValue + "&y=" + yValue + "&" + rValues.map(r => `r=${r}`).join('&');
     } else {
-        url = "/webLab2_war_exploded2/controller?x=" + xValue + "&y=" + yValue + "&r=" + rValues;
+        url = "/webLab2_war_exploded/AreaCheckServlet?x=" + xValue + "&y=" + yValue + "&r=" + rValues;
     }
 
     // Создаем XMLHttpRequest объект

@@ -17,6 +17,14 @@
     function setXValue(x) {
         document.getElementById("xValue").value = x;
     }
+    function setRValue(r) {
+        const rValue = document.getElementById("rValue").value
+        if (rValue === "") {
+            document.getElementById("rValue").value = r;
+        } else {
+            document.getElementById("rValue").value = "";
+        }
+    }
 </script>
 <script src="js/validate.js"></script>
 
@@ -65,10 +73,11 @@
                                 <div id="errorY" class="error"></div>
                                 <div>
                                     <label>Введите значение R (от 2 до 5):</label>
-                                    <label><input type="checkbox" name="r" value="2">2</label>
-                                    <label><input type="checkbox" name="r" value="3">3</label>
-                                    <label><input type="checkbox" name="r" value="4">4</label>
-                                    <label><input type="checkbox" name="r" value="5">5</label>
+                                    <label><input type="checkbox" name="r" value="2" onclick="setRValue(2)">2</label>
+                                    <label><input type="checkbox" name="r" value="3" onclick="setRValue(3)">3</label>
+                                    <label><input type="checkbox" name="r" value="4" onclick="setRValue(4)">4</label>
+                                    <label><input type="checkbox" name="r" value="5" onclick="setRValue(5)">5</label>
+                                    <input type="hidden" name="r" id="rValue" value="">
                                 </div>
                                 <div id="errorR" class="error"></div>
                                 <input type="submit" value="Проверить">
