@@ -36,7 +36,22 @@ function checkPoint(event) {
     }
     return {x: xValue, y: yValue, r: r};
 }
+function dot(results) {
+    console.log(results);
+    const rSplit = 200; // один r это 200 px на полотне
+    let x;
+    let y;
+    let r;
+    // results.forEach(result =>
+    //     x = result.x;
+    //     y = result.y;
+    //     r = result.r;
+    // )
 
+    let xValue = x/r*rSplit; // получили координату в пикселях относительно центра канваса
+    let yValue = y/r*rSplit;
+
+}
 // Главные оси
 function axis() {
     ctx.beginPath();

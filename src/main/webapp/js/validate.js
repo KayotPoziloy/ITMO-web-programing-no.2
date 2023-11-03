@@ -76,6 +76,8 @@ function submitForm(xValue, yValue, rValues) {
             let jsonStrings = responseText.split('\n');
             let results = jsonStrings.map(json => JSON.parse(json));
             updateResultTable(results);
+            dot(results);
+            // отправлять results в index.js, для дальнейшей отрисовки координаты
         } else {
             console.error("Ошибка при отправке данных на сервер");
         }

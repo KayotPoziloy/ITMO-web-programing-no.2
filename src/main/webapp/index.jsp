@@ -41,10 +41,9 @@
                     <tr>
                         <!--ячейка ввода данных-->
                         <td>
-                            <form action="javascript:void(0);" onsubmit="processForm();">
+                            <form action="javascript:void(0);" onsubmit="processForm();"> <%-- закрепить форму по верху а не по центру --%>
 
                                 <div>
-                                    <%--разобраться с тем чтобы кнопки нажимались и отправляли данные--%>
                                     <label>Введите значение X:</label>
                                         <button type="button" name="x" class="xButton" data-x="-2" onclick="setXValue('-2')">-2</button>
                                         <button type="button" name="x" class="xButton" data-x="-1.5" onclick="setXValue('-1.5')">-1.5</button>

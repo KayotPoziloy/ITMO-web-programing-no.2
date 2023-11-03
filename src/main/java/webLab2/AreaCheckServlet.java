@@ -75,6 +75,6 @@ public class AreaCheckServlet extends HttpServlet {
     }
 
     private boolean checkTriangle(double x, double y, double r) {
-        return x >= 0 && y >= 0 && y <= -4*x + r;
+        return x >= 0 && y >= 0 && y <= -4*x + r; // поправить
     }
 }
