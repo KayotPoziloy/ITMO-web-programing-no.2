@@ -33,9 +33,13 @@ function checkPoint(event) {
     console.log(x, y, r);
     console.log(xValue, yValue);
 
-    // if (validateForm(xValue, yValue, r)) {
+    let errorR = document.getElementById("errorR");
+    if (r === "") {
+        errorR.textContent = "Введите корректное значение R (от 2 до 5).";
+    } else {
+        errorR.textContent = "";
         submitForm(xValue, yValue, r);
-    // }
+    }
     return {x: xValue, y: yValue, r: r};
 }
 function dot(results) {

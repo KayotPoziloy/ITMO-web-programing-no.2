@@ -57,9 +57,9 @@ function submitForm(xValue, yValue, rValues) {
     let url;
     // Формируем URL с параметрами
     if (rValues.isArray) {
-        url = "/webLab2_war_exploded/controller?x=" + xValue + "&y=" + yValue + "&" + rValues.map(r => `r=${r}`).join('&');
+        url = "/webLab2_war_exploded2/controller?x=" + xValue + "&y=" + yValue + "&" + rValues.map(r => `r=${r}`).join('&');
     } else {
-        url = "/webLab2_war_exploded/AreaCheckServlet?x=" + xValue + "&y=" + yValue + "&r=" + rValues;
+        url = "/webLab2_war_exploded2/AreaCheckServlet?x=" + xValue + "&y=" + yValue + "&r=" + rValues;
     }
 
     // Создаем XMLHttpRequest объект
