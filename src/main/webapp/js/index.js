@@ -17,31 +17,42 @@ function checkPoint(event) {
     // потому, чтобы сместить точку к реальной координате относительно центра канваса нужно вычитать длину/2 и ширину/2
     const x = event.offsetX - xAxis;
     const y = -(event.offsetY - yAxis);
-    let r = document.getElementById("rValue").value; // пока условно, потом будет принимать из страницы
+    // let r = document.getElementById("rValue").value;
+    let r2 = document.getElementById("rValue2").value;
+    let r3 = document.getElementById("rValue3").value;
+    let r4 = document.getElementById("rValue4").value;
+    let r5 = document.getElementById("rValue5").value;
+    // добавляем все r в массив
+    let rArray = [r2, r3, r4, r5];
     const rSplit = 200; // один r это 200 px на полотне
-
     // пусть x = 160px rSplit = 200px x = 160/200 = 0,8
     // пусть x = 160/200*r = 0,8*r
     let xValue = x / rSplit; // получаем x относительно r в пикселях
-    console.log("относительный x: " + xValue);
-    xValue = xValue * r // получаем x относительно заданного r
-
     let yValue = y / rSplit;
+    console.log("относительный x: " + xValue);
     console.log("относительный y: " + yValue);
-    yValue = yValue * r;
-
-    console.log(x, y, r);
-    console.log(xValue, yValue);
-
     let errorR = document.getElementById("errorR");
-    if (r === "") {
-        errorR.textContent = "Введите корректное значение R (от 2 до 5).";
-    } else if (r.isArray) {
-        errorR.textContent = "Выберите только одно значение R (от 2 до 5).";
-    } else {
-        errorR.textContent = "";
-        submitForm(xValue, yValue, r);
-    }
+
+    let cnt = 0;
+    // проходимся по массиву
+    rArray.forEach(function (r) {
+        if (r !== '') {
+            let xValue = x / rSplit; // получаем x относительно r в пикселях
+            let yValue = y / rSplit; // получаем y относительно r в пикселях
+            errorR.textContent = "";
+            xValue = xValue * r; // получаем x относительно заданного r
+            yValue = yValue * r; // получаем x относительно заданного r
+            console.log("x: " + x + "y: " + y + "r: " + r);
+            console.log("x относительно r " + xValue + " y относительно r " + yValue);
+            submitForm(xValue, yValue, r); // отправляем форму
+        } else {
+            cnt++;
+        }
+        if (cnt === 4) {
+            errorR.textContent = "Введите корректное значение R (от 2 до 5)."; // доработать ошибку
+        }
+    });
+
     return {x: xValue, y: yValue, r: r};
 }
 function dot(results) {
