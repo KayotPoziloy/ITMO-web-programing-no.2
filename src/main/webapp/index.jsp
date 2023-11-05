@@ -17,12 +17,41 @@
     function setXValue(x) {
         document.getElementById("xValue").value = x;
     }
+    // принимаются и устанавливаются r
+    // если r уже стоит то удаляется
     function setRValue(r) {
-        const rValue = document.getElementById("rValue").value
-        if (rValue === "") {
-            document.getElementById("rValue").value = r;
-        } else {
-            document.getElementById("rValue").value = "";
+        let rVar = parseInt(r)
+        const rValue2 = document.getElementById("rValue2").value;
+        const rValue3 = document.getElementById("rValue3").value;
+        const rValue4 = document.getElementById("rValue4").value;
+        const rValue5 = document.getElementById("rValue5").value;
+        if (rVar === 2) {
+            if (rValue2 === "") {
+                document.getElementById("rValue2").value = r;
+            } else {
+                document.getElementById("rValue2").value = "";
+            }
+        }
+        if (rVar === 3) {
+            if (rValue3 === "") {
+                document.getElementById("rValue3").value = r;
+            } else {
+                document.getElementById("rValue3").value = "";
+            }
+        }
+        if (rVar === 4) {
+            if (rValue4 === "") {
+                document.getElementById("rValue4").value = r;
+            } else {
+                document.getElementById("rValue4").value = "";
+            }
+        }
+        if (rVar === 5) {
+            if (rValue5 === "") {
+                document.getElementById("rValue5").value = r;
+            } else {
+                document.getElementById("rValue5").value = "";
+            }
         }
     }
 </script>
@@ -77,7 +106,10 @@
                                     <label><input type="checkbox" name="r" value="3" onclick="setRValue(3)">3</label>
                                     <label><input type="checkbox" name="r" value="4" onclick="setRValue(4)">4</label>
                                     <label><input type="checkbox" name="r" value="5" onclick="setRValue(5)">5</label>
-                                    <input type="hidden" name="r" id="rValue" value="">
+                                    <input type="hidden" name="r" id="rValue2" value="">
+                                    <input type="hidden" name="r" id="rValue3" value="">
+                                    <input type="hidden" name="r" id="rValue4" value="">
+                                    <input type="hidden" name="r" id="rValue5" value="">
                                 </div>
                                 <div id="errorR" class="error"></div>
                                 <input type="submit" value="Проверить">

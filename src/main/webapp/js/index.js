@@ -16,7 +16,7 @@ function checkPoint(event) {
     // координата приходит относительно верхней левой точки в которой координата (0, 0)
     // потому, чтобы сместить точку к реальной координате относительно центра канваса нужно вычитать длину/2 и ширину/2
     const x = event.offsetX - xAxis;
-    const y = - (event.offsetY - yAxis);
+    const y = -(event.offsetY - yAxis);
     let r = document.getElementById("rValue").value; // пока условно, потом будет принимать из страницы
     const rSplit = 200; // один r это 200 px на полотне
 
@@ -24,11 +24,11 @@ function checkPoint(event) {
     // пусть x = 160/200*r = 0,8*r
     let xValue = x / rSplit; // получаем x относительно r в пикселях
     console.log("относительный x: " + xValue);
-    xValue = xValue*r // получаем x относительно заданного r
+    xValue = xValue * r // получаем x относительно заданного r
 
     let yValue = y / rSplit;
     console.log("относительный y: " + yValue);
-    yValue = yValue*r;
+    yValue = yValue * r;
 
     console.log(x, y, r);
     console.log(xValue, yValue);
@@ -36,6 +36,8 @@ function checkPoint(event) {
     let errorR = document.getElementById("errorR");
     if (r === "") {
         errorR.textContent = "Введите корректное значение R (от 2 до 5).";
+    } else if (r.isArray) {
+        errorR.textContent = "Выберите только одно значение R (от 2 до 5).";
     } else {
         errorR.textContent = "";
         submitForm(xValue, yValue, r);
