@@ -44,7 +44,7 @@ function checkPoint(event) {
             yValue = yValue * r; // получаем x относительно заданного r
             console.log("x: " + x + "y: " + y + "r: " + r);
             console.log("x относительно r " + xValue + " y относительно r " + yValue);
-            submitForm(xValue, yValue, r); // отправляем форму
+            submitForm(xValue, yValue, r, true); // отправляем форму
         } else {
             cnt++;
         }

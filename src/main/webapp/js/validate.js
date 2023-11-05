@@ -53,13 +53,14 @@ function validateForm(xValue, yValue, rValues) {
     return true;
 }
 
-function submitForm(xValue, yValue, rValues) {
+function submitForm(xValue, yValue, rValues, isCanvas) {
     let url;
     // Формируем URL с параметрами
-    if (rValues.isArray) {
-        url = "/webLab2_war_exploded2/controller?x=" + xValue + "&y=" + yValue + "&" + rValues.map(r => `r=${r}`).join('&');
-    } else {
+    if (isCanvas) {
         url = "/webLab2_war_exploded2/AreaCheckServlet?x=" + xValue + "&y=" + yValue + "&r=" + rValues;
+    } else {
+        url = "/webLab2_war_exploded2/controller?x=" + xValue + "&y=" + yValue + "&" + rValues.map(r => `r=${r}`).join('&');
+
     }
 
     // Создаем XMLHttpRequest объект
@@ -105,6 +106,6 @@ function processForm() {
     let {x, y, r} = getFormValues();
 
     if (validateForm(x, y, r)) {
-        submitForm(x, y, r)
+        submitForm(x, y, r, false);
     }
 }
