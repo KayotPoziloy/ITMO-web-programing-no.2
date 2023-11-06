@@ -29,8 +29,8 @@ function checkPoint(event) {
     // пусть x = 160/200*r = 0,8*r
     let xValue = x / rSplit; // получаем x относительно r в пикселях
     let yValue = y / rSplit;
-    console.log("относительный x: " + xValue);
-    console.log("относительный y: " + yValue);
+    // console.log("относительный x: " + xValue);
+    // console.log("относительный y: " + yValue);
     let errorR = document.getElementById("errorR");
 
     let cnt = 0;
@@ -42,8 +42,8 @@ function checkPoint(event) {
             errorR.textContent = "";
             xValue = xValue * r; // получаем x относительно заданного r
             yValue = yValue * r; // получаем x относительно заданного r
-            console.log("x: " + x + "y: " + y + "r: " + r);
-            console.log("x относительно r " + xValue + " y относительно r " + yValue);
+            // console.log("x: " + x + "y: " + y + "r: " + r);
+            // console.log("x относительно r " + xValue + " y относительно r " + yValue);
             submitForm(xValue, yValue, r, true); // отправляем форму
         } else {
             cnt++;
@@ -56,20 +56,25 @@ function checkPoint(event) {
     return {x: xValue, y: yValue, r: r};
 }
 function dot(results) {
-    console.log(results);
     const rSplit = 200; // один r это 200 px на полотне
     let x;
     let y;
     let r;
-    // results.forEach(result =>
-    //     x = result.x;
-    //     y = result.y;
-    //     r = result.r;
-    // )
+    results.forEach(function (result) {
+        x = result.x;
+        y = result.y;
+        r = result.r;
+    });
 
-    let xValue = x/r*rSplit; // получили координату в пикселях относительно центра канваса
-    let yValue = y/r*rSplit;
+    // console.log("функция dot " + x, y, r);
+    let xValue = x / r * rSplit + xAxis - 2; // получили координату в пикселях относительно левого верхнего угла канваса
+    let yValue = - (y / r * rSplit - yAxis + 2);
+    console.log("функция dot координаты в пикселях ", xValue, yValue);
 
+    ctx.beginPath();
+    ctx.fillStyle = "red"
+    ctx.fillRect(xValue, yValue, 4, 4,)
+    ctx.closePath();
 }
 // Главные оси
 function axis() {
