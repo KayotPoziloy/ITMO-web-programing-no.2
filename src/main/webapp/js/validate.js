@@ -7,9 +7,9 @@ function getFormValues() {
     let rCheckboxes = document.querySelectorAll('input[name="r"]:checked');
     let rValues = Array.from(rCheckboxes).map(checkbox => checkbox.value);
 
-    console.log("X:", xValue);
-    console.log("Y:", yValue);
-    console.log("R:", rValues);
+    // console.log("X:", xValue);
+    // console.log("Y:", yValue);
+    // console.log("R:", rValues);
 
     return {x: xValue, y: yValue, r: rValues};
 }
@@ -19,6 +19,7 @@ function validateForm(xValue, yValue, rValues) {
     let errorX = document.getElementById("errorX");
     let errorY = document.getElementById("errorY");
     let errorR = document.getElementById("errorR");
+    // console.log("r в validateForm", rValues);
 
     // Сбрасываем текст ошибок
     errorX.textContent = "";
@@ -35,21 +36,13 @@ function validateForm(xValue, yValue, rValues) {
         return false;
     }
 
-    if (rValues.isArray) {
-        for (let rValue of rValues) {
-            if (isNaN(rValue) || rValue < 2 || rValue > 5) {
-                errorR.textContent = "Введите корректное значение R (от 2 до 5).";
-                return false;
-            }
-        }
-    } else {
-        if (isNaN(rValues) || rValues < 2 || rValues > 5) {
+
+    for (let rValue of rValues) {
+        if (isNaN(rValue) || rValue < 2 || rValue > 5) {
             errorR.textContent = "Введите корректное значение R (от 2 до 5).";
             return false;
         }
     }
-
-
     return true;
 }
 
@@ -104,6 +97,7 @@ function updateResultTable(results) {
 // Главная функция, которая вызывает остальные функции и управляет процессом
 function processForm() {
     let {x, y, r} = getFormValues();
+    // console.log(r);
 
     if (validateForm(x, y, r)) {
         submitForm(x, y, r, false);

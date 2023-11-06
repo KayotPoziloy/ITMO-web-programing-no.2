@@ -69,7 +69,7 @@ function dot(results) {
     // console.log("функция dot " + x, y, r);
     let xValue = x / r * rSplit + xAxis - 2; // получили координату в пикселях относительно левого верхнего угла канваса
     let yValue = - (y / r * rSplit - yAxis + 2);
-    console.log("функция dot координаты в пикселях ", xValue, yValue);
+    // console.log("функция dot координаты в пикселях ", xValue, yValue);
 
     ctx.beginPath();
     ctx.fillStyle = "red"
