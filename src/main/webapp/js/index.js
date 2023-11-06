@@ -55,26 +55,63 @@ function checkPoint(event) {
 
     return {x: xValue, y: yValue, r: r};
 }
-function dot(results) {
-    const rSplit = 200; // один r это 200 px на полотне
-    let x;
-    let y;
-    let r;
+let resultsArray = [];
+// функция сохраняет все результаты в массив
+function arraySave(results) {
     results.forEach(function (result) {
-        x = result.x;
-        y = result.y;
-        r = result.r;
+        resultsArray.push(result);
     });
 
-    // console.log("функция dot " + x, y, r);
-    let xValue = x / r * rSplit + xAxis - 2; // получили координату в пикселях относительно левого верхнего угла канваса
-    let yValue = - (y / r * rSplit - yAxis + 2);
-    // console.log("функция dot координаты в пикселях ", xValue, yValue);
+    clearCanvas();
+    // в функцию dot передаются результаты по одному
+    resultsArray.forEach(function (result) {
+        dot(result);
+        console.log(result);
+    });
+}
+function dot(result) {
+    const rSplit = 200; // один r это 200 px на полотне
+    let x = result.x;
+    let y = result.y;
 
-    ctx.beginPath();
-    ctx.fillStyle = "red"
-    ctx.fillRect(xValue, yValue, 4, 4,)
-    ctx.closePath();
+    rArray.forEach(function (r) {
+        if (r !== "") {
+            // console.log("функция dot " + x, y, r);
+            let xValue = x / r * rSplit + xAxis - 2; // получили координату в пикселях относительно левого верхнего угла канваса
+            let yValue = - (y / r * rSplit - yAxis + 2);
+            // console.log("функция dot координаты в пикселях ", xValue, yValue);
+
+            ctx.beginPath();
+            ctx.fillStyle = "red"
+            ctx.fillRect(xValue, yValue, 4, 4,)
+            ctx.closePath();
+        }
+    })
+}
+
+let rArray;
+// функция инициализирует r
+function rInitialization() {
+    clearCanvas();
+    let r2 = document.getElementById("rValue2").value;
+    let r3 = document.getElementById("rValue3").value;
+    let r4 = document.getElementById("rValue4").value;
+    let r5 = document.getElementById("rValue5").value;
+    // добавляем все r в массив
+    rArray = [r2, r3, r4, r5];
+    console.log(rArray);
+    resultsArray.forEach(function (result) {
+        dot(result);
+        console.log(result);
+    });
+}
+
+// функция обновляет канвас
+function clearCanvas() {
+    ctx.clearRect(0, 0, canvasPlotWidth, canvasPlotHeight);
+    axis();
+    zone();
+    r();
 }
 // Главные оси
 function axis() {

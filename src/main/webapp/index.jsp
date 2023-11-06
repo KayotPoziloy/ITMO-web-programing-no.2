@@ -102,10 +102,10 @@
                                 <div id="errorY" class="error"></div>
                                 <div>
                                     <label>Введите значение R (от 2 до 5):</label>
-                                    <label><input type="checkbox" name="r" value="2" onclick="setRValue(2)">2</label>
-                                    <label><input type="checkbox" name="r" value="3" onclick="setRValue(3)">3</label>
-                                    <label><input type="checkbox" name="r" value="4" onclick="setRValue(4)">4</label>
-                                    <label><input type="checkbox" name="r" value="5" onclick="setRValue(5)">5</label>
+                                    <label><input type="checkbox" name="r" value="2" onclick="setRValue(2); rInitialization()">2</label>
+                                    <label><input type="checkbox" name="r" value="3" onclick="setRValue(3); rInitialization()">3</label>
+                                    <label><input type="checkbox" name="r" value="4" onclick="setRValue(4); rInitialization()">4</label>
+                                    <label><input type="checkbox" name="r" value="5" onclick="setRValue(5); rInitialization()">5</label>
                                     <input type="hidden" name="r" id="rValue2" value="">
                                     <input type="hidden" name="r" id="rValue3" value="">
                                     <input type="hidden" name="r" id="rValue4" value="">
