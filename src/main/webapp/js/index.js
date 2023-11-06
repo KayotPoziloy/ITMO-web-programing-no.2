@@ -18,12 +18,8 @@ function checkPoint(event) {
     const x = event.offsetX - xAxis;
     const y = -(event.offsetY - yAxis);
     // let r = document.getElementById("rValue").value;
-    let r2 = document.getElementById("rValue2").value;
-    let r3 = document.getElementById("rValue3").value;
-    let r4 = document.getElementById("rValue4").value;
-    let r5 = document.getElementById("rValue5").value;
-    // добавляем все r в массив
-    let rArray = [r2, r3, r4, r5];
+
+    rInitialize()
     const rSplit = 200; // один r это 200 px на полотне
     // пусть x = 160px rSplit = 200px x = 160/200 = 0,8
     // пусть x = 160/200*r = 0,8*r
@@ -56,7 +52,7 @@ function checkPoint(event) {
     return {x: xValue, y: yValue, r: r};
 }
 let resultsArray = [];
-// функция сохраняет все результаты в массив
+// функция сохраняет все результаты в массив и отрисовывает точки по результатам которые есть
 function arraySave(results) {
     results.forEach(function (result) {
         resultsArray.push(result);
@@ -64,11 +60,9 @@ function arraySave(results) {
 
     clearCanvas();
     // в функцию dot передаются результаты по одному
-    resultsArray.forEach(function (result) {
-        dot(result);
-        console.log(result);
-    });
+    dotSend();
 }
+// функция отрисовывает координаты
 function dot(result) {
     const rSplit = 200; // один r это 200 px на полотне
     let x = result.x;
@@ -89,10 +83,22 @@ function dot(result) {
     })
 }
 
-let rArray;
-// функция инициализирует r
+let rArray; // массив с r, указанными на данный момент
+// функция отправляет r для отрисовки
 function rInitialization() {
     clearCanvas();
+    rInitialize();
+    dotSend();
+}
+// функция перебирает и отправляет результаты из resultsArray в функцию dot
+function dotSend() {
+    resultsArray.forEach(function (result) {
+        dot(result);
+        console.log(result);
+    });
+}
+// функция инициализирует r
+function rInitialize() {
     let r2 = document.getElementById("rValue2").value;
     let r3 = document.getElementById("rValue3").value;
     let r4 = document.getElementById("rValue4").value;
@@ -100,10 +106,6 @@ function rInitialization() {
     // добавляем все r в массив
     rArray = [r2, r3, r4, r5];
     console.log(rArray);
-    resultsArray.forEach(function (result) {
-        dot(result);
-        console.log(result);
-    });
 }
 
 // функция обновляет канвас
@@ -113,6 +115,7 @@ function clearCanvas() {
     zone();
     r();
 }
+clearCanvas();
 // Главные оси
 function axis() {
     ctx.beginPath();
@@ -126,7 +129,6 @@ function axis() {
     ctx.stroke();
     ctx.closePath();
 }
-axis();
 
 // Четверть круга
 function circle() {
@@ -138,7 +140,6 @@ function circle() {
     ctx.fill();
 
     ctx.closePath();
-
 }
 
 // Треугольник
@@ -190,8 +191,6 @@ function zone() {
     square();
 }
 
-zone();
-
 // Отрисовка значений R
 function r() {
     ctx.beginPath();
@@ -226,5 +225,3 @@ function r() {
     }
     ctx.closePath();
 }
-
-r();
