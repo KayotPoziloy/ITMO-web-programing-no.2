@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 @WebServlet("/controller")
@@ -31,7 +32,7 @@ public class ControllerServlet extends HttpServlet {
                 break;
             }
         }
-        
+
         if (isValid) {
             // если да, то перенаправляется на /AreaCheckServlet
             request.getRequestDispatcher("/AreaCheckServlet").forward(request, response);
@@ -44,8 +45,11 @@ public class ControllerServlet extends HttpServlet {
     // Проверка значения X
     public boolean checkX(String x) {
         try {
-            double xValue = Double.parseDouble(x);
-            return xValue >= -2 && xValue <= 2;
+            BigDecimal xValue = new BigDecimal(x);
+            // число сравнивается с -2 если оно меньше чем -2 возвращается -1,
+            // если ровно -2 возвращается 0,
+            // если больше -2 возвращается один
+            return xValue.compareTo(BigDecimal.valueOf(-2)) >= 0 && xValue.compareTo(BigDecimal.valueOf(2)) <= 0;
         } catch (NumberFormatException e) {
             return false;
         }
@@ -54,8 +58,8 @@ public class ControllerServlet extends HttpServlet {
     // Проверка значения Y
     public boolean checkY(String y) {
         try {
-            double yValue = Double.parseDouble(y);
-            return yValue >= -5 && yValue <= 3;
+            BigDecimal yValue = new BigDecimal(y);
+            return yValue.compareTo(BigDecimal.valueOf(-5)) >= 0 && yValue.compareTo(BigDecimal.valueOf(3)) <= 0;
         } catch (NumberFormatException e) {
             return false;
         }

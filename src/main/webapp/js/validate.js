@@ -50,10 +50,10 @@ function submitForm(xValue, yValue, rValues, isCanvas) {
     let url;
     // Формируем URL с параметрами
     if (isCanvas) {
-        url = "/webLab2_war_exploded/AreaCheckServlet?x=" + xValue + "&y=" + yValue + "&r=" + rValues;
+        url = "/webLab2_war_exploded3/AreaCheckServlet?x=" + xValue + "&y=" + yValue + "&r=" + rValues;
     } else {
-        url = "/webLab2_war_exploded/controller?x=" + xValue + "&y=" + yValue + "&" + rValues.map(r => `r=${r}`).join('&');
-
+        url = "/webLab2_war_exploded3/controller?x=" + xValue + "&y=" + yValue + "&" + rValues.map(r => `r=${r}`).join('&');
+        console.log(url);
     }
 
     // Создаем XMLHttpRequest объект
@@ -63,6 +63,7 @@ function submitForm(xValue, yValue, rValues, isCanvas) {
 
     xhr.onload = function () {
         if (xhr.status === 200) {
+            console.log("исправлено");
             let responseText = xhr.responseText;
             responseText = responseText.replace(/}{/g, '}\n{');
             let jsonStrings = responseText.split('\n');

@@ -1,39 +1,41 @@
 package webLab2.java;
 
+import java.math.BigDecimal;
+
 public class CheckResult {
-    private double x;
-    private double y;
-    private double r;
+    private BigDecimal x;
+    private BigDecimal y;
+    private BigDecimal r;
     private boolean isInside;
 
-    public CheckResult(double x, double y, double r, boolean isInside) {
+    public CheckResult(BigDecimal x, BigDecimal y, BigDecimal r, boolean isInside) {
         this.x = x;
         this.y = y;
         this.r = r;
         this.isInside = isInside;
     }
 
-    public double getX() {
+    public BigDecimal getX() {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(BigDecimal x) {
         this.x = x;
     }
 
-    public double getY() {
+    public BigDecimal getY() {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(BigDecimal y) {
         this.y = y;
     }
 
-    public double getR() {
+    public BigDecimal getR() {
         return r;
     }
 
-    public void setR(double r) {
+    public void setR(BigDecimal r) {
         this.r = r;
     }
 
@@ -45,3 +47,4 @@ public class CheckResult {
         isInside = inside;
     }
 }
+
